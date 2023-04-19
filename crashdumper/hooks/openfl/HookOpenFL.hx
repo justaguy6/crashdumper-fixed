@@ -1,6 +1,7 @@
 package crashdumper.hooks.openfl;
 import crashdumper.hooks.IHookPlatform;
 import haxe.io.Bytes;
+import openfl.utils.Assets;
 
 #if !lime_legacy
 	import lime.app.Application;
@@ -58,7 +59,8 @@ class HookOpenFL implements IHookPlatform
 				#else
 					fileName = Application.current.meta.get("file");
 					packageName = Application.current.meta.get("packageName");
-					version = Util.getProjectVersion("project.xml");
+					if (Assets.exists("project.xml"))
+						version = Util.getProjectVersion("project.xml");
 				#end
 			#end
 		#else
