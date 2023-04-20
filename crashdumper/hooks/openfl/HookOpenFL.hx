@@ -57,7 +57,7 @@ class HookOpenFL implements IHookPlatform
 					packageName = Application.current.config.packageName;
 					version = Application.current.config.version;
 				#else
-				if (Assets.exists(Util.getProjectVersion("project.xml"))){
+				if (Assets.exists("project.xml")){
 					fileName = Application.current.meta.get("file");
 					packageName = Application.current.meta.get("packageName");
 					version = Util.getProjectVersion("project.xml");
