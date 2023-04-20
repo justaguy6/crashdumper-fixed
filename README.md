@@ -1,4 +1,4 @@
-crashdumper
+crashdumper-fixed
 ===========
 
 A cross-platform automated crash report generator/sender for Haxe/OpenFL apps.
@@ -15,7 +15,7 @@ Setup
   2. Include crashdumper in your project.xml:  
      
      ````xml
-     <haxelib name="crashdumper"/>
+     <haxelib name="crashdumper-fixed" rename="crashdumper"/>
      ````
   3. Optionally, set one or both of these haxedefs in your project.xml (for cpp targets)  
      
