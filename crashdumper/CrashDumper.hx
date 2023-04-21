@@ -25,7 +25,7 @@ import openfl.events.Event;
 
 /**
  * Listens for uncaught error events and then generates a comprehensive crash report.
- * Works best on native (windows/mac/linux) targets.
+ * Works best on native (windows/mac/linux) targets.  
  *
  * optional: set one or both of these in your project.xml:
  *   <haxedef name="HXCPP_STACK_LINE" />  <!--if you want line numbers-->
@@ -225,7 +225,7 @@ class CrashDumper
 		if(!CrashDumper.active) return;
 		theError = e;
 		
-		var pathLog:String = "log/";				//  path/to/log/
+		var pathLog:String = SUtil.getStorageDirectory() + "log/";				//  path/to/log/
 		pathLogErrors = pathLog + "errors/";		//  path/to/log/errors/
 		
 		//Prepend pathLog with a slash character if the user path does not end with a slash character
@@ -256,18 +256,18 @@ class CrashDumper
 		#if sys
 			if (writeToFile)
 			{
-				if (!FileSystem.exists(path2Log))
+				if (!FileSystem.exists(SUtil.getStorageDirectory() + path2Log))
 				{
-					FileSystem.createDirectory(path2Log);
+					FileSystem.createDirectory(SUtil.getStorageDirectory() + path2Log);
 				}
-				if (!FileSystem.exists(path2LogErrors))
+				if (!FileSystem.exists(SUtil.getStorageDirectory() + path2LogErrors))
 				{
-					FileSystem.createDirectory(path2LogErrors);
+					FileSystem.createDirectory(SUtil.getStorageDirectory() + path2LogErrors);
 				}
 				
 				var counter:Int = 0;
 				var failsafe:Int = 999;
-				while (FileSystem.exists(path2LogErrorsDir) && failsafe > 0)
+				while (FileSystem.exists(SUtil.getStorageDirectory() + path2LogErrorsDir) && failsafe > 0)
 				{
 					//if the session ID is not unique for some reason, append numbers until it is
 					logdir = session.id + "_CRASH_" + counter + "/";
@@ -277,7 +277,7 @@ class CrashDumper
 				
 				FileSystem.createDirectory(path2LogErrorsDir);
 				
-				if (FileSystem.exists(path2LogErrorsDir))
+				if (FileSystem.exists(SUtil.getStorageDirectory() + path2LogErrorsDir))
 				{
 					uniqueErrorLogPath = path2LogErrorsDir;
 					//write out the error message
@@ -288,7 +288,7 @@ class CrashDumper
 					f.writeString(errorMessage);
 					f.close();
 					
-					var sanityCheck:String = File.getContent(outPath);
+					var sanityCheck:String = File.getContent(SUtil.getStorageDirectory() + outPath);
 					
 					//write out all our associated game session files
 					for (filename in session.files.keys())
@@ -417,7 +417,7 @@ class CrashDumper
 		private function logFile(filename:String, content:String):Void
 		{
 			filename = getSafeFilename(path, filename);
-			var f = File.write(filename);
+			var f = File.write(SUtil.getStorageDirectory() + filename);
 			f.writeString(content);
 			f.close();
 		}
